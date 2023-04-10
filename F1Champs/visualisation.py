@@ -1,6 +1,14 @@
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+
+#Ce fichier va permettre de visualiser ces données
+#le but est de mettre en graphe des données reliant la date de naissance et le nombre de victoires
+#Ces corrélations sont évidemment sans intérets mais amusantes.
+
+
+#Effectue une liste des dates de naissances des gagants dans l'ordre des vainqueurs.
+#Par exemple on obtient pour les deux premiers éléments [1906-10-30,1911-06-24,...]
 def birth_date(file):
     res=[]
     with open(file,'r') as json_file:
@@ -9,6 +17,8 @@ def birth_date(file):
         res.append(i['birthdate'])
     return res
 
+#Effectue une liste des mois de naissances des gagants dans l'ordre des vainqueurs.
+#Par exemple on obtient pour les deux premiers éléments [10,06,...]
 def month_list(tab):
     res =[]
     for i in tab:
@@ -16,7 +26,8 @@ def month_list(tab):
     month, frequency = np.unique(res,return_counts=True)
     return (month,frequency) 
      
-
+#Effectue une liste des années de naissances des gagants dans l'ordre des vainqueurs.
+#Par exemple on obtient pour les deux premiers éléments [1906,1911,...]
 def year_list(tab):
     res =[]
     for i in tab:
@@ -24,6 +35,9 @@ def year_list(tab):
     year, frequency = np.unique(res,return_counts=True)
     return (year,frequency)   
 
+
+#Effectue une liste des années de naissances des gagants dans l'ordre des vainqueurs.
+#Par exemple on obtient pour les deux premiers éléments [30,24,...]
 def day_list(tab):
     res =[]
     for i in tab:
@@ -32,7 +46,7 @@ def day_list(tab):
     return (day,frequency) 
 
 
-
+#Utilisation de matplotlib pour mettre ces données en graph.
 def show_hist2d(y,m,d):
     plt.figure()
     plt.subplot(1,3,1)
@@ -54,6 +68,8 @@ def show_hist2d(y,m,d):
     
 
 if __name__ == "__main__":
+    #On utilise le fichier data_clean.json c'est un fichier similaire à data.json avec quelques modifications 
+    #manuelles sur des erreurs de rentré d'information sur les différentes pages wikipedia.
     year = year_list(birth_date('spiders//data_clean.json'))
     month =month_list(birth_date('spiders//data_clean.json'))
     day = day_list(birth_date('spiders//data_clean.json'))
